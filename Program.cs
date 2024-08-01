@@ -1,5 +1,6 @@
 
 using Book_rew.Database;
+using Book_rew.Database.Data;
 using Book_rew.Interfaces;
 using Book_rew.Repositories;
 using Book_rew.Services;
@@ -36,10 +37,11 @@ namespace Book_rew
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
-            builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IBookService, BookDataService>(); /// Local => BookDataService; DB => BookService
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
+            builder.Services.AddScoped<IBookInitialData, BookInitialData>();
 
 
             var app = builder.Build();

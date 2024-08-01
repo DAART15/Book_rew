@@ -18,7 +18,7 @@ namespace Book_rew.Models
         [MinLength(13)]
         [MaxLength(13)]
         public string ISBN { get; set; }
-        public DateTime PublishedTime { get; set; }
+        public DateTime PublishedTime { get; set; } = DateTime.Now;
         
     }
 }
