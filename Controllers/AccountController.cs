@@ -15,14 +15,14 @@ namespace Book_rew.Controllers
             _accountService = accountService;
             _jwtService = jwtService;
         }
-        [HttpPost("Register")]
-        public ActionResult Register(string username, string password)
+        [HttpPost("register")]
+        public ActionResult Register(string username, string password, string role)
         {
-            _accountService.Register(username, password);
+            _accountService.Register(username, password, role);
 
             return Ok();
         }
-        [HttpGet("Login")]
+        [HttpGet("login")]
         public ActionResult Login(string username, string password)
         {
 

@@ -8,21 +8,33 @@ namespace Book_rew.Services
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IConfiguration _configuration;
 
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(IAccountRepository accountRepository, IConfiguration configuration)
         {
             _accountRepository = accountRepository;
+            _configuration = configuration;
         }
 
-        public void Register(string username, string password)
+        public void Register(string username, string password, string role)
         {
+            if (role == "BestTeam")
+            {
+                role = _configuration.GetValue<string>("AdminGuid");
+            }
+
+            if (String.IsNullOrEmpty(role))
+            {
+                role = "User";
+            }
+
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
             Account account = new Account
             {
                 UserName = username,
                 Password = passwordHash,
                 PasswordSalt = passwordSalt,
-                Role = "Admin"
+                Role = role
             };
             _accountRepository.Add(account);
 
