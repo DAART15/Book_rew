@@ -1,6 +1,5 @@
 ﻿using Book_rew.Interfaces;
 using Book_rew.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book_rew.Controllers
@@ -18,7 +17,7 @@ namespace Book_rew.Controllers
             var response = await _bookService.GetAllBooksAsync();
             if (!response.IsSuccess)
             {
-                if(response.Message == "404")
+                if (response.Message == "404")
                 {
                     return NotFound(response.Message);
                 }
