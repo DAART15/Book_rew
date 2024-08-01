@@ -5,87 +5,87 @@ using Book_rew.Models;
 
 namespace Book_rew.Services
 {
-    public class BookDataService(IBookInitialData _bookInitialData) : IBookService
+    public class BookDataService(IBookInitialData _bookInitialData) : IBookService<Book>
     {
-        public async Task<ResponseDto> GetAllBooksAsync()
+        public async Task<ResponseDto<Book>> GetAllBooksAsync()
         {
             var allBooks = _bookInitialData.Books;
             if (!allBooks.Any())
             {
-                return new ResponseDto(false, "Books not Found");
+                return new ResponseDto<Book>(false, "404");
             }
-            return new ResponseDto(true, allBooks);
+            return new ResponseDto<Book>(true, allBooks);
         }
-        public async Task<ResponseDto> GetBookByIDAsync(int id)
+        public async Task<ResponseDto<Book>> GetBookByIDAsync(int id)
         {
             if (id <= 0)
             {
-                return new ResponseDto(false, "Invalid book Id");
+                return new ResponseDto<Book>(false, "Invalid book Id");
             }
             var response = await GetAllBooksAsync();
             if (response.IsSuccess == false)
             {
-                return new ResponseDto(false, response.Message);
+                return new ResponseDto<Book>(false, response.Message);
             }
-            var bookById = response.BookList.FirstOrDefault(i => i.Id == id);
+            var bookById = response.List.FirstOrDefault(i => i.Id == id);
             if (bookById == null)
             {
-                return new ResponseDto(false, "Book with this Id not Found");
+                return new ResponseDto<Book>(false, "Book with this Id not Found");
             }
-            return new ResponseDto(true, bookById);
+            return new ResponseDto<Book>(true, bookById);
         }
-        public async Task<ResponseDto> CreateBookAsync(Book book)
+        public async Task<ResponseDto<Book>> CreateBookAsync(Book book)
         {
             if (book == null)
             {
-                return new ResponseDto(false, "Book must be not null");
+                return new ResponseDto<Book>(false, "Book must be not null");
             }
             if (book.Id != 0)
             {
-                return new ResponseDto(false, "When Creating Book Id must be \"0\"");
+                return new ResponseDto<Book>(false, "When Creating Book Id must be \"0\"");
             }
             var response = await GetAllBooksAsync();
             if (response.IsSuccess == false)
             {
-                return new ResponseDto(false, response.Message);
+                return new ResponseDto<Book>(false, response.Message);
             }
-            var maxId = response.BookList.Max(i => i.Id);
+            var maxId = response.List.Max(i => i.Id);
             book.Id = maxId+1;
             _bookInitialData.Books.Add(book);
-            return new ResponseDto(true, "");
+            return new ResponseDto<Book>(true, "");
         }
-        public async Task<ResponseDto> UpdateBookAsync(Book book)
+        public async Task<ResponseDto<Book>> UpdateBookAsync(Book book)
         {
             if (book.Id <= 0)
             {
-                return new ResponseDto(false, "Invalid book Id");
+                return new ResponseDto<Book>(false, "Invalid book Id");
             }
             var response = await GetBookByIDAsync(book.Id);
             if (response.IsSuccess == false)
             {
-                return new ResponseDto(false, response.Message);
+                return new ResponseDto<Book>(false, response.Message);
             }
-            var bookToUpdate = response.BookObject;
+            var bookToUpdate = response.Object;
             bookToUpdate.Title = book.Title;
             bookToUpdate.Author = book.Author;
             bookToUpdate.ISBN = book.ISBN;
             _bookInitialData.Books[book.Id] = bookToUpdate;
-            return new ResponseDto(true, "Book Updated");
+            return new ResponseDto<Book>(true, "Book Updated");
         }
-        public async Task<ResponseDto> DeleteBookAsync(int id)
+        public async Task<ResponseDto<Book>> DeleteBookAsync(int id)
         {
             if (id <= 0)
             {
-                return new ResponseDto(false, "Invalid book Id");
+                return new ResponseDto<Book>(false, "Invalid book Id");
             }
             var response = await GetBookByIDAsync(id);
             if (response.IsSuccess == false)
             {
-                return new ResponseDto(false, response.Message);
+                return new ResponseDto<Book>(false, response.Message);
             }
-            var bookToDelete = response.BookObject;
+            var bookToDelete = response.Object;
             _bookInitialData.Books.Remove(bookToDelete);
-            return new ResponseDto(true, "Book deleted");
+            return new ResponseDto<Book>(true, "Book deleted");
         }        
     }
 }

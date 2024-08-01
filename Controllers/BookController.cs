@@ -1,4 +1,5 @@
 ﻿using Book_rew.Interfaces;
+using Book_rew.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace Book_rew.Controllers
 {
     [Route("api/books")]
     [ApiController]
-    public class BookController(IBookService _bookService) : ControllerBase
+    public class BookController(IBookService<Book> _bookService) : ControllerBase
     {
         [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
@@ -15,12 +16,20 @@ namespace Book_rew.Controllers
         public async Task<ActionResult> GetAllBooksAsync()
         {
             var response = await _bookService.GetAllBooksAsync();
-            if (response.IsSuccess == false)
+            if (!response.IsSuccess)
             {
-                return NotFound(response.Message);
+                if(response.Message == "404")
+                {
+                    return NotFound(response.Message);
+                }
             }
-            return Ok(response.BookList);
-            
+            return Ok(response.List);
+        }
+        [HttpGet()]
+
+        public async Task<ActionResult> GetBookById()
+        {
+
         }
     }
 }
