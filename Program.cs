@@ -2,6 +2,7 @@
 using Book_rew.Database;
 using Book_rew.Database.Data;
 using Book_rew.Interfaces;
+using Book_rew.Models;
 using Book_rew.Repositories;
 using Book_rew.Services;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,10 @@ namespace Book_rew
             }));
             builder.Services.AddDbContext<AplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("RamasConnection"));// sioe vietoje kiekvienas is appsettings paimsite savo connection. aisku pries tai turite pakoreguoti savo serverio pavadinima
+                options.UseSqlServer(builder.Configuration.GetConnectionString("RamasConnection"));//Default for GitHub
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("KestutisConnection"));
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("TadeushConnection"));
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("AugustasConnection"));
             });
 
 
@@ -37,7 +41,7 @@ namespace Book_rew
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
-            builder.Services.AddScoped<IBookService, BookDataService>(); /// Local => BookDataService; DB => BookService
+            builder.Services.AddScoped<IBookService<Book>, BookDataService>(); /// Local => BookDataService; DB => BookService
             builder.Services.AddScoped<IJwtService, JwtService>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();

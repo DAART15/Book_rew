@@ -4,29 +4,29 @@ using Book_rew.Models;
 
 namespace Book_rew.Services
 {
-    public class BookService : IBookService
+    public class BookService : IBookService<Book>
     {
-        public Task<ResponseDto> CreateBookAsync(Book book)
+        public Task<ResponseDto<Book>> CreateBookAsync(Book book)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseDto> DeleteBookAsync(int id)
+        public Task<ResponseDto<Book>> DeleteBookAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseDto> GetAllBooksAsync()
+        public Task<ResponseDto<Book>> GetAllBooksAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseDto> GetBookByIDAsync(int id)
+        public Task<ResponseDto<Book>> GetBookByIDAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ResponseDto> UpdateBookAsync(Book book)
+        public Task<ResponseDto<Book>> UpdateBookAsync(Book book)
         {
             throw new NotImplementedException();
         }

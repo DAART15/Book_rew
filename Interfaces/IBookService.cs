@@ -3,12 +3,12 @@ using Book_rew.Models;
 
 namespace Book_rew.Interfaces
 {
-    public interface IBookService
+    public interface IBookService<T> where T : Book
     {
-        Task<ResponseDto> GetAllBooksAsync();
-        Task<ResponseDto> GetBookByIDAsync(int id);
-        Task<ResponseDto> CreateBookAsync(Book book);
-        Task<ResponseDto> UpdateBookAsync(Book book);
-        Task<ResponseDto> DeleteBookAsync(int id);
+        Task<ResponseDto<T>> GetAllBooksAsync();
+        Task<ResponseDto<T>> GetBookByIDAsync(int id);
+        Task<ResponseDto<T>> CreateBookAsync(T book);
+        Task<ResponseDto<T>> UpdateBookAsync(T book);
+        Task<ResponseDto<T>> DeleteBookAsync(int id);
     }
 }

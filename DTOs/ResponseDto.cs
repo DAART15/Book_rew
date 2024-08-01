@@ -2,28 +2,27 @@
 
 namespace Book_rew.DTOs
 {
-    public class ResponseDto
+    public class ResponseDto<T>
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
-        public Book BookObject { get; set; }
-        public List<Book> BookList { get; set; }
+        public T Object { get; set; }
+        public List<T> List { get; set; }
 
         public ResponseDto(bool isSuccess, string message)
         {
             IsSuccess = isSuccess;
             Message = message;
         }
-
-        public ResponseDto(bool isSuccess, Book objectToReturn)
+        public ResponseDto(bool isSuccess, T objectToReturn)
         {
             IsSuccess = isSuccess;
-            BookObject = objectToReturn;
+            Object = objectToReturn;
         }
-        public ResponseDto(bool isSuccess, List<Book> bookList)
+        public ResponseDto(bool isSuccess, List<T> bookList)
         {
             IsSuccess = isSuccess;
-            BookList = bookList;
+            List = bookList;
         }
     }
 }
