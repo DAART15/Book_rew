@@ -1,11 +1,15 @@
 ﻿using Book_rew.Interfaces;
 using Book_rew.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book_rew.Controllers
 {
     [Route("api/books")]
     [ApiController]
+    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "69a926f5-733b-4411-93d4-5748a051edd8")]
     public class BookController(IBookService<Book> _bookService) : ControllerBase
     {
         [HttpGet("all")]
