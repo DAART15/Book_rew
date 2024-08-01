@@ -1,4 +1,5 @@
-﻿using Book_rew.Models;
+﻿using Book_rew.Database.Configurations;
+using Book_rew.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Book_rew.Database
@@ -13,7 +14,9 @@ namespace Book_rew.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.ApplyConfiguration(new BookConfiguration());
+            modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             
         }
     }
