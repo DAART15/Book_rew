@@ -11,9 +11,9 @@ namespace Book_rew.Database.Data
     {
         public List<Book> Books { get; set; } = new List<Book>()
         {
-            new Book(1, "Tile", "Author", "111111111111" ),
-            new Book(2, "Tile-2", "Author-2", "2222222222222" ),
-            new Book(3, "Tile-3", "Author-3", "3333333333333" ),
+            new Book(1, "Tile", "Author", "1111111111111" ),
+            new Book(2, "Tile-2", "Author-2", "22222222222222" ),
+            new Book(3, "Tile-3", "Author-3", "33333333333333" ),
         };
     }
 }
