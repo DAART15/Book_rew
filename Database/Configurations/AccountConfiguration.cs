@@ -8,7 +8,19 @@ namespace Book_rew.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("Accounts");
+            builder.HasKey(i => i.Id);
+            builder.Property(i => i.Id)
+                .IsRequired()
+                .ValueGeneratedNever();
+            builder.Property(i => i.UserName)
+                .IsRequired();
+            builder.Property(i => i.Password)
+                .IsRequired();
+            builder.Property(i => i.PasswordSalt)
+                .IsRequired();
+            builder.Property(i => i.Role)
+                .IsRequired();
         }
     }
 }
