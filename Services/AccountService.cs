@@ -18,12 +18,12 @@ namespace Book_rew.Services
 
         public void Register(string username, string password, string role)
         {
-            if (String.IsNullOrEmpty(role) || role != "BestTeam")
+            if (String.IsNullOrEmpty(role) || role.Trim() != "BestTeam")
             {
                 role = "User";
             }
 
-            if (role == "BestTeam")
+            if (role.Trim() == "BestTeam")
             {
                 role = _configuration.GetValue<string>("AdminGuid");
             }
