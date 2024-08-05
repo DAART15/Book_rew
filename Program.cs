@@ -97,7 +97,7 @@ namespace Book_rew
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
-            builder.Services.AddScoped<IBookService<Book>, BookDataService>(); /// Local => BookDataService; DB => BookService
+            builder.Services.AddScoped<IBookService<Book>, BookService>(); /// Local => BookDataService; DB => BookService
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
             builder.Services.AddScoped<IBookInitialData, BookInitialData>();

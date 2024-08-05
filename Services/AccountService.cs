@@ -22,15 +22,20 @@ namespace Book_rew.Services
             {
                 role = _configuration.GetValue<string>("AdminGuid");
             }
-
-            if (String.IsNullOrEmpty(role))
+            else
             {
                 role = "User";
             }
 
+            /*if (string.IsNullOrEmpty(role))
+            {
+                role = "User";
+            }*/
+
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
             Account account = new Account
             {
+                Id = Guid.NewGuid(),
                 UserName = username,
                 Password = passwordHash,
                 PasswordSalt = passwordSalt,
