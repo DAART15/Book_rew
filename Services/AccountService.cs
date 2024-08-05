@@ -18,19 +18,15 @@ namespace Book_rew.Services
 
         public void Register(string username, string password, string role)
         {
-            if (role == "BestTeam")
-            {
-                role = _configuration.GetValue<string>("AdminGuid");
-            }
-            else
+            if (String.IsNullOrEmpty(role) || role != "BestTeam")
             {
                 role = "User";
             }
 
-            /*if (string.IsNullOrEmpty(role))
+            if (role == "BestTeam")
             {
-                role = "User";
-            }*/
+                role = _configuration.GetValue<string>("AdminGuid");
+            }
 
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
             Account account = new Account
