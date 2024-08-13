@@ -33,23 +33,24 @@ namespace Book_rew.Services
             }
             return new ResponseDto<Book>(true, bookById, ResponseDto<Book>.Status.Ok);
         }
-        public async Task<ResponseDto<Book>> CreateBookAsync(Book book)
+        public async Task<ResponseDto<Book>> CreateBookAsync(BookDto bookdto)
         {
-            if (book == null)
+            if (bookdto == null)
             {
                 return new ResponseDto<Book>(false, "Invalid book data.", ResponseDto<Book>.Status.BadRequest);
             }
-            if (book.Id != 0)
+            /*if (bookdto.Id != 0)
             {
                 return new ResponseDto<Book>(false, "Book ID must be \"0\"", ResponseDto<Book>.Status.BadRequest);
-            }
+            }*/
             var response = await GetAllBooksAsync();
-            if (response.IsSuccess == false)
+            if (!response.IsSuccess)
             {
                 return new ResponseDto<Book>(false, response.Message, response.StatusCode);
             }
             var maxId = response.List.Max(i => i.Id);
-            book.Id = maxId + 1;
+            var book = new Book(maxId + 1, bookdto.Title, bookdto.Author, bookdto.ISBN);
+
             var bookAfterDB = await _bookRepository.CreateBookDBAsync(book);
             if(bookAfterDB.Author != "Created")
             {
