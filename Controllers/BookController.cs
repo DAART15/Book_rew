@@ -1,4 +1,5 @@
-﻿using Book_rew.Interfaces;
+﻿using Book_rew.DTOs;
+using Book_rew.Interfaces;
 using Book_rew.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ namespace Book_rew.Controllers
 {
     [Route("api/books")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "69a926f5-733b-4411-93d4-5748a051edd8")]
     public class BookController(IBookService<Book> _bookService) : ControllerBase
     {
@@ -44,7 +45,7 @@ namespace Book_rew.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult>CrateBookAsync([FromBody] Book book)
+        public async Task<ActionResult>CrateBookAsync([FromBody] BookDto book)
         {
             var response = await _bookService.CreateBookAsync(book);
             return StatusCode((int)response.StatusCode, response.Message);

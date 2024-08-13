@@ -19,5 +19,6 @@ namespace Book_rew.Models
         [MaxLength(13)]
         public string ISBN { get; set; }
         public DateTime PublishedTime { get; set; } = DateTime.Now;
+        public IList<Review> Reviews { get; set; }
     }
 }

@@ -19,5 +19,6 @@ namespace Book_rew.Models
         [Range(1,5)]
         public int Rating { get; set; }
         public string Comment { get; set; }
+        public Book Book { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Book_rew.Interfaces
     {
         Task<ResponseDto<T>> GetAllBooksAsync();
         Task<ResponseDto<T>> GetBookByIDAsync(int id);
-        Task<ResponseDto<T>> CreateBookAsync(T book);
+        Task<ResponseDto<T>> CreateBookAsync(BookDto bookdto);
         Task<ResponseDto<T>> UpdateBookAsync(T book);
         Task<ResponseDto<T>> DeleteBookAsync(int id);
     }

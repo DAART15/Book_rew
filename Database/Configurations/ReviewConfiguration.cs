@@ -21,6 +21,12 @@ namespace Book_rew.Database.Configurations
                 .IsRequired();
             builder.Property(r =>r.Comment)
                 .IsRequired();
+            builder.HasOne(b => b.Book)
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(r => r.BookId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasData(
                 new Review(1, 1, "Ramas", 5, "One of the best")
                 );
