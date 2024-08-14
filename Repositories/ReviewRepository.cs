@@ -17,5 +17,9 @@ namespace Book_rew.Repositories
             await _dbContext.SaveChangesAsync();
             return review;
         }
+        public async Task<List<Review>> GetReviewsByBookIdDBAsync(int bookId)
+        {
+            return await _dbContext.Reviews.Where(r =>r.BookId == bookId).ToListAsync();
+        }
     }
 }

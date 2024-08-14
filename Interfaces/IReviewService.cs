@@ -1,4 +1,5 @@
 ﻿using Book_rew.DTOs;
+using Book_rew.Models;
 
 namespace Book_rew.Interfaces
 {
@@ -6,5 +7,6 @@ namespace Book_rew.Interfaces
     {
         Task<ResponseDto<ReviewDto>> GetAllReviews();
         Task<ResponseDto<ReviewDto>> SaveReview(ReviewDto reviewDto);
+        Task<ResponseDto<Review>> GetReviewsByBookId(int bookId);
     }
 }

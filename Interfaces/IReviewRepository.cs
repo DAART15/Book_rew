@@ -7,5 +7,6 @@ namespace Book_rew.Interfaces
     {
         Task<IList<Review>> GetAllRewievsDBAsync();
         Task<Review> CreateReviewDBAsync(Review review);
+        Task<List<Review>> GetReviewsByBookIdDBAsync(int bookId);
     }
 }

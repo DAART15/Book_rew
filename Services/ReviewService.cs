@@ -9,13 +9,13 @@ namespace Book_rew.Services
     {
         public async Task<ResponseDto<ReviewDto>> GetAllReviews()
         {
-            var allRewievs = await _reviewRepository.GetAllRewievsDBAsync();
-            if (!allRewievs.Any() || allRewievs.Count == 0)
+            var allReviews = await _reviewRepository.GetAllRewievsDBAsync();
+            if (!allReviews.Any() || allReviews.Count == 0)
             {
                 return new ResponseDto<ReviewDto>(false, "No rewievs found.", ResponseDto<ReviewDto>.Status.NotFound);
             }
             List<ReviewDto> rewievDtoList = new List<ReviewDto>();
-            foreach (var rew in allRewievs)
+            foreach (var rew in allReviews)
             {
                 ReviewDto rewievDto = new ReviewDto
                 {
@@ -50,12 +50,12 @@ namespace Book_rew.Services
             {
                 return new ResponseDto<ReviewDto>(false, "Invalid Coment.", ResponseDto<ReviewDto>.Status.BadRequest);
             }
-            var response = await GetAllReviews();
-            if (!response.IsSuccess)
+            var allReviews = await _reviewRepository.GetAllRewievsDBAsync();
+            if (!allReviews.Any() || allReviews.Count == 0)
             {
-                return new ResponseDto<ReviewDto>(false, response.Message, response.StatusCode);
+                return new ResponseDto<ReviewDto>(false, "No rewievs found.", ResponseDto<ReviewDto>.Status.NotFound);
             }
-            var maxId = response.List.Max(i => i.BookId);
+            var maxId = allReviews.Max(i => i.Id);
             var review = new Review(maxId + 1, reviewDto.BookId, reviewDto.ReviewerName, reviewDto.Rating, reviewDto.Comment);
             var reviewResponse = await _reviewRepository.CreateReviewDBAsync(review);
             if( reviewResponse != review)
@@ -67,6 +67,19 @@ namespace Book_rew.Services
                 return new ResponseDto<ReviewDto>(true, "Review Created Successfully", ResponseDto<ReviewDto>.Status.Created);
             }
             
+        }
+        public async Task<ResponseDto<Review>> GetReviewsByBookId(int bookId)
+        {
+            if (bookId < 1)
+            {
+                return new ResponseDto<Review>(false, "Invalid book Id.", ResponseDto<Review>.Status.BadRequest);
+            }
+            var allReviews = await _reviewRepository.GetReviewsByBookIdDBAsync(bookId);
+            if (!allReviews.Any() || allReviews.Count == 0)
+            {
+                return new ResponseDto<Review>(false, "No rewievs found.", ResponseDto<Review>.Status.NotFound);
+            }
+            return new ResponseDto<Review>(true, allReviews, ResponseDto<Review>.Status.Ok);
         }
     }
 }
