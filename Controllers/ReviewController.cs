@@ -37,5 +37,19 @@ namespace Book_rew.Controllers
             }
             return StatusCode((int)response.StatusCode, response.List);
         }
+        [HttpGet("{reviewId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> GetReviewByBookIdAndReviewId(int bookId,int reviewId)
+        {
+            var response = await _reviewService.GetReviewByBookIdAndReviewIdAsync(bookId, reviewId);
+            if (!response.IsSuccess)
+            {
+                return StatusCode((int)response.StatusCode, response.Message);
+            }
+            return StatusCode((int)response.StatusCode, response.Object);
+        }
     }
 }

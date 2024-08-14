@@ -8,5 +8,6 @@ namespace Book_rew.Interfaces
         Task<ResponseDto<ReviewDto>> GetAllReviews();
         Task<ResponseDto<ReviewDto>> SaveReview(ReviewDto reviewDto);
         Task<ResponseDto<Review>> GetReviewsByBookId(int bookId);
+        Task<ResponseDto<Review>> GetReviewByBookIdAndReviewIdAsync(int bookId, int reviewId);
     }
 }

@@ -9,6 +9,7 @@ namespace Book_rew.Controllers
 {
     [Route("/api/admin/")]
     [ApiController]
+    //[Authorize]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "69a926f5-733b-4411-93d4-5748a051edd8")]
     public class AdminController(IReviewService _reviewService, IBookService<Book> _bookService) : ControllerBase
     {

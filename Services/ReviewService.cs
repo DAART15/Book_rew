@@ -81,5 +81,23 @@ namespace Book_rew.Services
             }
             return new ResponseDto<Review>(true, allReviews, ResponseDto<Review>.Status.Ok);
         }
+        public async Task<ResponseDto<Review>> GetReviewByBookIdAndReviewIdAsync(int bookId, int reviewId)
+        {
+            if (bookId < 1 || reviewId < 1)
+            {
+                return new ResponseDto<Review>(false, "Invalid book or review Id.", ResponseDto<Review>.Status.BadRequest);
+            }
+            var response = await GetReviewsByBookId(bookId);
+            if (!response.IsSuccess)
+            {
+                return new ResponseDto<Review>(false, response.Message, response.StatusCode);
+            }
+            var responseToreturn = response.List.FirstOrDefault(i => i.Id == reviewId);
+            if (responseToreturn == null)
+            {
+                return new ResponseDto<Review>(false, "Review not found.", ResponseDto<Review>.Status.NotFound);
+            }
+            return new ResponseDto<Review>(true, responseToreturn, ResponseDto<Review>.Status.Ok);
+        }
     }
 }
